@@ -1,6 +1,5 @@
 # encoding: UTF-8
-require_relative 'Piece.rb'
-
+require_relative 'SteppingPiece.rb'
 
 class King < SteppingPiece
   OFFSETS = [
@@ -13,8 +12,9 @@ class King < SteppingPiece
     [-1, 1],
     [-1, -1]
   ]
-  
+  attr_accessor :has_moved
   def initialize(pos, color, board)
+    @has_moved = false
     if color
       @symbol = "♔"
     else
@@ -23,4 +23,44 @@ class King < SteppingPiece
     super
   end
   
+  def pos=(value)
+    @pos = value
+    @has_moved = true
+  end
+  
+  def moves
+    #Adding castling 
+    positions = super
+    if @has_moved
+      rook1 = @board[[@pos[0] - 4, @pos[1]]]
+      rook2 = @board[[@pos[0] + 3, @pos[1]]]
+      unless rook1.has_moved
+        if clear_path_1? 
+          positions += [@pos[0] - 2, @pos[1]]
+        end
+      end
+      
+      unless rook2.has_moved
+        if clear_path_2?
+          positions += [pos[0] + 2, @pos[1]]
+        end
+      end
+    end
+    
+    positions
+  end
+  
+  def clear_path_1?
+    @board[[@pos[0] - 1, @pos[1]]].nil? &&
+    @board[[@pos[0] - 2, @pos[1]]].nil? &&
+    @board[[@pos[0] - 3, @pos[1]]].nil?
+  end
+  
+  def clear_path_2?
+    @board[[@pos[0] + 1, @pos[1]]].nil? &&
+    @board[[@pos[0] + 2, @pos[1]]].nil?
+  end
+    
+  
+
 end
