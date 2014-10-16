@@ -128,8 +128,7 @@ class Board
   end
   
   def make_move(piece, dest)
-    #For castling
-    if piece.is_a?(King) && (piece.pos[0] - dest[0]).abs == 2
+    if piece.is_a?(King) && (piece.pos[0] - dest[0]).abs == 2 # Castling
       if dest[0] < piece.pos[0]
         rook = self[[0, piece.pos[1]]]
         new_pos = [piece.pos[0] - 1, piece.pos[1]]
@@ -144,16 +143,10 @@ class Board
     self[piece.pos] = nil
     self[dest] = piece
     piece.pos = dest
-
-  end
-  
-  def castle
-    
-    
-    
   end
   
   private
+  
   def set_pawns
     (0..7).each do |i|
       @grid[i][1] = Pawn.new([i, 1], true, self)
