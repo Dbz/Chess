@@ -1,5 +1,4 @@
 # encoding: UTF-8
-require 'debugger'
 require_relative 'Board.rb'
 
 class Game
