@@ -9,14 +9,13 @@ class Game
   
   def play
     
-    puts "Welcome to chess: enter standard-ish moves, e.g. e1e3"
+    puts "Welcome to chess! Please enter moves in the form of: e1e3"
     until check_mate?
       @board.display
-      puts "White please move:"
+      puts "White move:"
       move = get_valid_move
-      p "move: #{move}"
       @board.make_move(move[0], move[1])
-      #system "clear"
+      system "clear" or system "cls"
       @board.display
       
       if check_mate?
@@ -24,10 +23,10 @@ class Game
         return
       end
      
-      puts "Black please move:"
+      puts "Black move:"
       move = get_valid_move
       @board.make_move(move[0], move[1])
-      #system "clear"
+      system "clear" or system "cls"
     end
   
     @board.display
