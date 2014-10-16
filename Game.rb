@@ -15,19 +15,20 @@ class Game
       @board.display
       puts "White please move:"
       move = get_valid_move
+      p "move: #{move}"
       @board.make_move(move[0], move[1])
-      system "clear"
+      #system "clear"
       @board.display
       
-     if check_mate?
-       puts "Congratulations White, you win!"
-       return
-     end
+      if check_mate?
+        puts "Congratulations White, you win!"
+        return
+      end
      
       puts "Black please move:"
       move = get_valid_move
       @board.make_move(move[0], move[1])
-      system "clear"
+      #system "clear"
     end
   
     @board.display
@@ -40,20 +41,57 @@ class Game
   end
   
   def get_valid_move
-      letters = %w(a b c d e f g h)
-      input = gets.chomp.split("")
+    letters = %w(a b c d e f g h)
+    input = gets.chomp.split("")
   
-      start = [letters.index(input[0]), input[1].to_i]
-      dest = [letters.index(input[2]), input[3].to_i]
-      piece = @board[start]
+    start = [letters.index(input[0]), input[1].to_i]
+    dest = [letters.index(input[2]), input[3].to_i]
+    piece = @board[start]
       
-      moves = piece.moves
-      if !moves.include?(dest) || piece.moved_into_check?(start, dest)
-        puts " not a valid move"
-        get_valid_move
+    moves = piece.moves
+    if !moves.include?(dest) || piece.moved_into_check?(start, dest)
+      puts "not a valid move: #{moves}"
+      get_valid_move
+      #return
+    elsif attempting_to_castle?(piece, dest) #castling
+      p "get_valid_move attempting to caste"
+      if dest[0] > piece.pos[0]
+        unless king_side_castle?(piece)
+          puts "not a valid move"
+          get_valid_move
+          return
+        end
       else
-        [piece, dest]
+        unless queen_side_castle?(piece)
+          puts "not a valid move"
+          get_valid_move
+          return
+        end
       end
+    end
+    [piece, dest]
+  end
+  
+  def attempting_to_castle?(piece, dest)
+    piece.is_a?(King) && (piece.pos[0] - dest[0]).abs == 2
+  end
+  
+  
+  
+  def king_side_castle?(piece)
+    pos1 =[piece.pos[0] + 1, piece.pos[1]]
+    b = @board.dup
+    b.make_move(b[piece.pos], pos1)
+    return false if b.check?(piece.color)
+    true
+  end
+  
+  def queen_side_castle?(piece)
+    pos2 = [piece.pos[0] - 1, piece.pos[1]]
+    b = @board.dup
+    b.make_move(b[piece.pos], pos2)
+    return false if b.check?(piece.color)
+    true
   end
       
 end
