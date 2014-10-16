@@ -48,11 +48,10 @@ class Game
       
     moves = piece.moves
     if !moves.include?(dest) || piece.moved_into_check?(start, dest)
-      puts "not a valid move: #{moves}"
+      puts "not a valid move"
       get_valid_move
       return
     elsif attempting_to_castle?(piece, dest) #castling
-      p "get_valid_move attempting to caste"
       if dest[0] > piece.pos[0]
         unless king_side_castle?(piece)
           puts "not a valid move"
