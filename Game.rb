@@ -5,6 +5,7 @@ class Game
   attr_reader :board
   def initialize
     @board = Board.new
+    @player_color = true
   end
   
   def play
@@ -24,6 +25,7 @@ class Game
       end
      
       puts "Black move:"
+      @player_color = !@player_color
       move = get_valid_move
       @board.make_move(move[0], move[1])
       system "clear" or system "cls"
@@ -47,7 +49,7 @@ class Game
     piece = @board[start]
       
     moves = piece.moves
-    if !moves.include?(dest) || piece.moved_into_check?(start, dest)
+    if !moves.include?(dest) || piece.moved_into_check?(start, dest) || @player_color != piece.color
       puts "not a valid move"
       get_valid_move
       return
