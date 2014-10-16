@@ -23,7 +23,7 @@ class Piece
   
   def moved_into_check?(start, dest)
     b = @board.dup
-    b.make_move([b[start], dest])
+    b.make_move(b[start], dest)
     b.check? b[dest].color
   end
 end

@@ -31,22 +31,21 @@ class King < SteppingPiece
   def moves
     #Adding castling 
     positions = super
-    if @has_moved
+    unless @has_moved
       rook1 = @board[[@pos[0] - 4, @pos[1]]]
       rook2 = @board[[@pos[0] + 3, @pos[1]]]
-      unless rook1.has_moved
+      if rook1.is_a?(Rook) && !rook1.has_moved
         if clear_path_1? 
-          positions += [@pos[0] - 2, @pos[1]]
+          positions << [@pos[0] - 2, @pos[1]]
         end
       end
       
-      unless rook2.has_moved
+      if rook2.is_a?(Rook) && !rook2.has_moved
         if clear_path_2?
-          positions += [pos[0] + 2, @pos[1]]
+          positions << [pos[0] + 2, @pos[1]]
         end
       end
     end
-    
     positions
   end
   
@@ -61,6 +60,4 @@ class King < SteppingPiece
     @board[[@pos[0] + 2, @pos[1]]].nil?
   end
     
-  
-
 end

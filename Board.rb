@@ -128,9 +128,29 @@ class Board
   end
   
   def make_move(piece, dest)
+    #For castling
+    if piece.is_a?(King) && (piece.pos[0] - dest[0]).abs == 2
+      if dest[0] < piece.pos[0]
+        rook = self[[0, piece.pos[1]]]
+        new_pos = [piece.pos[0] - 1, piece.pos[1]]
+        make_move(rook, new_pos)
+      else
+        rook = self[[7, piece.pos[1]]]
+        new_pos = [piece.pos[0] + 1, piece.pos[1]]
+        make_move(rook, new_pos)
+      end
+    end
+    
     self[piece.pos] = nil
     self[dest] = piece
     piece.pos = dest
+
+  end
+  
+  def castle
+    
+    
+    
   end
   
   private
