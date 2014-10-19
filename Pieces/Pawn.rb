@@ -1,5 +1,12 @@
 # encoding: UTF-8
 require_relative './Piece.rb'
+require_relative './Queen.rb'
+require_relative './Rook.rb'
+require_relative './Knight.rb'
+require_relative './Bishop.rb'
+
+require 'byebug'
+
 class Pawn < Piece
   def initialize(pos, color, board)
     @starting_pos = pos.dup
@@ -13,15 +20,36 @@ class Pawn < Piece
   end
   
   def pos=(value)
-    @pos = pos
-    if color
-      promote_pawn if value[0] == 7
+    @pos = value
+    if @color
+      promote_pawn if @pos[1] == 7
     else
-      promote_pawn if value[0] == 0
+      promote_pawn if @pos[1] == 0
     end
   end
   
   def promote_pawn
+    debugger
+    options = ["queen", "knight", "rook", "bishop"]
+    puts "Please select the piece that you would like to promote the pawn to!"
+    puts options.map(&:capitalize).join(", ")
+    
+    input = gets.chomp.downcase
+    unless options.include? input
+      puts "That wasn't an option. Please try again!"
+      promote_pawn
+    end
+    
+    case input
+    when "queen"
+      @board[@pos] = Queen.new(@pos, color, @board)
+    when "knight"
+      @board[@pos] = Knight.new(@pos, color, @board)
+    when "rook"
+      @board[@pos] = Rook.new(@pos, color, @board)
+    when "bishop"
+      @board[@pos] = Bishop.new(@pos, color, @board)
+    end
   end
         
   
@@ -32,10 +60,10 @@ class Pawn < Piece
     #Staring Move
     if @starting_pos == @pos && in_bounds?([x, y + 2]) && color && @board[[x, y + 2]].nil?
       total_moves << [x, y + 2]
-    end
-    if @starting_pos == @pos && in_bounds?([x, y - 2]) && !color && @board[[x, y - 2]].nil?
+    elsif @starting_pos == @pos && in_bounds?([x, y - 2]) && !color && @board[[x, y - 2]].nil?
       total_moves << [x, y - 2]
     end
+    
     # Attack
     if in_bounds?([x+1, y+1]) && @board.enemy_piece?([x+1, y+1], !@color) && color
       total_moves << [x+1, y+1]
@@ -45,7 +73,6 @@ class Pawn < Piece
       total_moves << [x-1, y-1]
     end
     
-    
     if in_bounds?([x-1, y+1]) && @board.enemy_piece?([x-1, y+1], !@color) && color
       total_moves << [x-1, y+1] 
     end
@@ -53,14 +80,13 @@ class Pawn < Piece
     if in_bounds?([x+1, y-1]) && @board.enemy_piece?([x+1, y-1], !@color) && !color
       total_moves << [x+1, y-1] 
     end
+    
     # Forward
-   if in_bounds?([x, y+1]) && @board[[x, y+1]].nil? && color
-     total_moves << [x, y+1]
-   end
-   
-   if in_bounds?([x, y-1]) && @board[[x, y-1]].nil? && !color
-     total_moves << [x, y-1]
-   end
+    if in_bounds?([x, y+1]) && @board[[x, y+1]].nil? && color
+      total_moves << [x, y+1]
+    elsif in_bounds?([x, y-1]) && @board[[x, y-1]].nil? && !color
+      total_moves << [x, y-1]
+    end
     
     total_moves
   end

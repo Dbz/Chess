@@ -10,6 +10,8 @@ class Game
   end
   
   def play
+    @board[[0, 7]] = nil
+    @board[[0, 6]] = nil
     puts "Welcome to chess! Please enter moves in the form of: e1e3"
     until check_mate?
       @board.display
@@ -53,6 +55,7 @@ class Game
     # Not a valid destination | Moving into check | Moving opponent's piece
     if !moves.include?(dest) || piece.moved_into_check?(start, dest) || @player_color != piece.color
       puts "not a valid move for #{piece.to_s}"
+      puts "moves are: #{moves}"
       return get_valid_move
     elsif attempting_to_castle?(piece, dest) # Castling
       unless king_side_castle?(piece) || queen_side_castle?(piece)
@@ -86,5 +89,6 @@ end
 
 g = Game.new
 g.play
+#g.test
 
 
