@@ -12,6 +12,19 @@ class Pawn < Piece
     super
   end
   
+  def pos=(value)
+    @pos = pos
+    if color
+      promote_pawn if value[0] == 7
+    else
+      promote_pawn if value[0] == 0
+    end
+  end
+  
+  def promote_pawn
+  end
+        
+  
   def moves
     total_moves = []
     x, y = @pos[0], @pos[1]
