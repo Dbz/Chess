@@ -28,8 +28,9 @@ class Pawn < Piece
     end
   end
   
+  # TODO: change unless / end to begin / rescue / end
   def promote_pawn
-    debugger
+    return if @board.is_duplicate?
     options = ["queen", "knight", "rook", "bishop"]
     puts "Please select the piece that you would like to promote the pawn to!"
     puts options.map(&:capitalize).join(", ")
@@ -40,6 +41,7 @@ class Pawn < Piece
       promote_pawn
     end
     
+    @board[@pos] = nil
     case input
     when "queen"
       @board[@pos] = Queen.new(@pos, color, @board)

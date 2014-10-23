@@ -1,0 +1,303 @@
+---
+- &1 !ruby/object:Board
+  grid:
+  - - !ruby/object:Rook
+      had_moved: false
+      symbol: ♖
+      board: *1
+      pos:
+      - 0
+      - 0
+      color: true
+    - 
+    - 
+    - 
+    - 
+    - 
+    - !ruby/object:Pawn
+      starting_pos:
+      - 0
+      - 1
+      has_moved: false
+      symbol: ♙
+      board: *1
+      pos:
+      - 0
+      - 6
+      color: true
+    - 
+  - - !ruby/object:Knight
+      symbol: ♘
+      board: *1
+      pos:
+      - 1
+      - 0
+      color: true
+    - !ruby/object:Pawn
+      starting_pos:
+      - 1
+      - 1
+      has_moved: false
+      symbol: ♙
+      board: *1
+      pos:
+      - 1
+      - 1
+      color: true
+    - 
+    - 
+    - 
+    - 
+    - 
+    - !ruby/object:Knight
+      symbol: ♞
+      board: *1
+      pos:
+      - 1
+      - 7
+      color: false
+  - - !ruby/object:Bishop
+      board: *1
+      pos:
+      - 2
+      - 0
+      color: true
+      symbol: ♗
+    - !ruby/object:Pawn
+      starting_pos:
+      - 1
+      - 6
+      has_moved: false
+      symbol: ♟
+      board: *1
+      pos:
+      - 2
+      - 1
+      color: false
+    - 
+    - 
+    - 
+    - 
+    - !ruby/object:Pawn
+      starting_pos:
+      - 2
+      - 6
+      has_moved: false
+      symbol: ♟
+      board: *1
+      pos:
+      - 2
+      - 6
+      color: false
+    - !ruby/object:Bishop
+      board: *1
+      pos:
+      - 2
+      - 7
+      color: false
+      symbol: ♝
+  - - !ruby/object:Queen
+      symbol: ♕
+      board: *1
+      pos:
+      - 3
+      - 0
+      color: true
+    - !ruby/object:Pawn
+      starting_pos:
+      - 3
+      - 1
+      has_moved: false
+      symbol: ♙
+      board: *1
+      pos:
+      - 3
+      - 1
+      color: true
+    - 
+    - 
+    - 
+    - 
+    - !ruby/object:Pawn
+      starting_pos:
+      - 3
+      - 6
+      has_moved: false
+      symbol: ♟
+      board: *1
+      pos:
+      - 3
+      - 6
+      color: false
+    - !ruby/object:Queen
+      symbol: ♛
+      board: *1
+      pos:
+      - 3
+      - 7
+      color: false
+  - - !ruby/object:King
+      has_moved: false
+      symbol: ♔
+      board: *1
+      pos:
+      - 4
+      - 0
+      color: true
+    - !ruby/object:Pawn
+      starting_pos:
+      - 4
+      - 1
+      has_moved: false
+      symbol: ♙
+      board: *1
+      pos:
+      - 4
+      - 1
+      color: true
+    - 
+    - 
+    - 
+    - 
+    - !ruby/object:Pawn
+      starting_pos:
+      - 4
+      - 6
+      has_moved: false
+      symbol: ♟
+      board: *1
+      pos:
+      - 4
+      - 6
+      color: false
+    - !ruby/object:King
+      has_moved: false
+      symbol: ♚
+      board: *1
+      pos:
+      - 4
+      - 7
+      color: false
+  - - !ruby/object:Bishop
+      board: *1
+      pos:
+      - 5
+      - 0
+      color: true
+      symbol: ♗
+    - !ruby/object:Pawn
+      starting_pos:
+      - 5
+      - 1
+      has_moved: false
+      symbol: ♙
+      board: *1
+      pos:
+      - 5
+      - 1
+      color: true
+    - 
+    - 
+    - 
+    - 
+    - !ruby/object:Pawn
+      starting_pos:
+      - 5
+      - 6
+      has_moved: false
+      symbol: ♟
+      board: *1
+      pos:
+      - 5
+      - 6
+      color: false
+    - !ruby/object:Bishop
+      board: *1
+      pos:
+      - 5
+      - 7
+      color: false
+      symbol: ♝
+  - - !ruby/object:Knight
+      symbol: ♘
+      board: *1
+      pos:
+      - 6
+      - 0
+      color: true
+    - !ruby/object:Pawn
+      starting_pos:
+      - 6
+      - 1
+      has_moved: false
+      symbol: ♙
+      board: *1
+      pos:
+      - 6
+      - 1
+      color: true
+    - 
+    - 
+    - 
+    - 
+    - !ruby/object:Pawn
+      starting_pos:
+      - 6
+      - 6
+      has_moved: false
+      symbol: ♟
+      board: *1
+      pos:
+      - 6
+      - 6
+      color: false
+    - !ruby/object:Knight
+      symbol: ♞
+      board: *1
+      pos:
+      - 6
+      - 7
+      color: false
+  - - !ruby/object:Rook
+      had_moved: false
+      symbol: ♖
+      board: *1
+      pos:
+      - 7
+      - 0
+      color: true
+    - !ruby/object:Pawn
+      starting_pos:
+      - 7
+      - 1
+      has_moved: false
+      symbol: ♙
+      board: *1
+      pos:
+      - 7
+      - 1
+      color: true
+    - 
+    - 
+    - 
+    - 
+    - !ruby/object:Pawn
+      starting_pos:
+      - 7
+      - 6
+      has_moved: false
+      symbol: ♟
+      board: *1
+      pos:
+      - 7
+      - 6
+      color: false
+    - !ruby/object:Rook
+      had_moved: false
+      symbol: ♜
+      board: *1
+      pos:
+      - 7
+      - 7
+      color: false
+- true

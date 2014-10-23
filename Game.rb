@@ -1,4 +1,5 @@
 # encoding: UTF-8
+require 'yaml'
 require_relative 'Board.rb'
 
 class Game
@@ -15,19 +16,8 @@ class Game
     puts "Welcome to chess! Please enter moves in the form of: e1e3"
     until check_mate?
       @board.display
-      puts "White move:"
-      move = get_valid_move
-      @board.make_move(move[0], move[1])
-      @player_color = !@player_color
-      system "clear" or system "cls"
-      @board.display
+      @player_color ? (puts "White move:") : (puts "Black move:")
       
-      if check_mate?
-        puts "Congratulations White, you win!"
-        return
-      end
-     
-      puts "Black move:"
       move = get_valid_move
       @board.make_move(move[0], move[1])
       @player_color = !@player_color
@@ -46,6 +36,16 @@ class Game
   def get_valid_move
     letters = %w(a b c d e f g h)
     input = gets.chomp.split("")
+    
+    if input.first == "s"
+      save_game
+      return get_valid_move
+    elsif input.first == "l"
+      load_game
+      system "clear" or system "cls"
+      @board.display
+      return get_valid_move
+    end
   
     start = [letters.index(input[0]), input[1].to_i]
     dest = [letters.index(input[2]), input[3].to_i]
@@ -64,6 +64,18 @@ class Game
       end
     end
     return [piece, dest]
+  end
+  
+  def save_game
+    save = [@board, @player_color]
+    File.open("chess_save", "w") do |f|
+      f.puts save.to_yaml
+    end
+  end
+  
+  def load_game
+    save = YAML::load(File.read("chess_save")) if File.exist?("chess_save")
+    @board, @player_color = save[0], save[1]
   end
   
   def attempting_to_castle?(piece, dest)

@@ -14,9 +14,18 @@ require 'colorize'
 class Board
   attr_accessor :grid
   
-  def initialize
+  def initialize(dup_board = false)
     @grid = Array.new(8) { Array.new(8) { nil } }
-    populate
+    
+    if dup_board
+      @is_duplicate = true
+    else
+      populate
+    end
+  end
+  
+  def is_duplicate?
+    @is_duplicate
   end
   
   def populate
@@ -56,7 +65,7 @@ class Board
   
   
   def dup
-    b = Board.new
+    b = Board.new(true)
     @grid.each_with_index do |row, i|
       row.each_with_index do |piece, j|
         unless piece.nil?
@@ -109,7 +118,7 @@ class Board
       moves.each do |dest|
         b = self.dup
         p = b[piece.pos]
-        b.make_move([p, dest])
+        # b.make_move([p, dest])
         unless b.check?(color)
           return false
         end
