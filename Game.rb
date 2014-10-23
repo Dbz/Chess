@@ -30,7 +30,7 @@ class Game
   end
   
   def check_mate?
-    @board.check_mate?(true) || @board.check_mate?(false)
+    @board.check_mate?(@player_color)
   end
   
   def get_valid_move

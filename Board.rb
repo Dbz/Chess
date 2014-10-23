@@ -118,7 +118,7 @@ class Board
       moves.each do |dest|
         b = self.dup
         p = b[piece.pos]
-        # b.make_move([p, dest])
+        b.make_move(p, dest)
         unless b.check?(color)
           return false
         end
