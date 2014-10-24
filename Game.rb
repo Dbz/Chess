@@ -11,8 +11,6 @@ class Game
   end
   
   def play
-    @board[[0, 7]] = nil
-    @board[[0, 6]] = nil
     puts "Welcome to chess! Please enter moves in the form of: e1e3"
     until check_mate?
       @board.display
