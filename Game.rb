@@ -23,7 +23,10 @@ class Game
     end
   
     @board.display
-    puts "Congratulations Black, you win!"
+    
+    print "Congratulations "
+    @player_color ? (print "white, ") : (print "black, ")
+    print "you just won!"
     
   end
   
