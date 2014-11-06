@@ -90,8 +90,27 @@ class Pawn < Piece
       total_moves << [x, y-1]
     end
     
+    # En Passant
+    last_move = @board.last_move
+    if last_move
+      last_move_piece = @board[last_move.dest].class.name
+      #debugger
+      # White on 5th rank, last move was made by a pawn from 7th rank to 5th rank and position is now next to pawn
+      if @color && y == 4 && last_move_piece == "Pawn" && last_move.pos[1] == 6 && last_move.dest[1] == 4 && x + 1 == last_move.pos[0]
+        total_moves << [x+1, y+1]
+      elsif @color && y == 4 && last_move_piece == "Pawn" && last_move.pos[1] == 6 && last_move.dest[1] == 4 && x - 1 == last_move.pos[0]
+        total_moves << [x-1, y+1]
+      # Black on 3rd rank, last move was made by a pawn from 2nd rank to 4th rank and position is now next to pawn
+      elsif !@color && y == 3 && last_move_piece == "Pawn" && last_move.pos[1] == 1 && last_move.dest[1] == 3 && x + 1 == last_move.pos[0]
+        total_moves << [x+1, y-1]
+      elsif !@color && y == 3 && last_move_piece == "Pawn" && last_move.pos[1] == 1 && last_move.dest[1] == 3 && x - 1 == last_move.pos[0]
+        total_moves << [x-1, y-1]
+      end
+    end
+    
     total_moves
   end
+  
   
   
 end

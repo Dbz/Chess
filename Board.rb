@@ -12,9 +12,17 @@ require_relative './Pieces/King.rb'
 require 'colorize'
 
 class Board
-  attr_accessor :grid
+  attr_accessor :grid, :move_list
+  
+  class Move
+    attr_accessor :pos, :dest
+    def initialize(pos, dest)
+      @pos, @dest = pos, dest
+    end
+  end
   
   def initialize(dup_board = false)
+    @move_list = []
     @grid = Array.new(8) { Array.new(8) { nil } }
     
     if dup_board
@@ -144,13 +152,26 @@ class Board
         make_move(rook, new_pos)
       end
     end
+    if piece.is_a?(Pawn) && piece.pos[0] != dest[0] && self[dest].nil? # En Passant
+      self[[dest[0], piece.pos[1]]] = nil # Remove captured pawn
+    end
+    
+    add_move_to_move_list(piece.pos, dest)
     
     self[piece.pos] = nil
     self[dest] = piece
     piece.pos = dest
   end
   
+  def last_move
+    move_list.last
+  end
+  
   private
+  
+  def add_move_to_move_list(pos, dest) # En Passant checks last move
+    move_list << Move.new(pos.dup, dest.dup)
+  end
   
   def pieces(color)
     @grid.flatten.compact.select {|piece| piece.color == color }

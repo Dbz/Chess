@@ -97,7 +97,11 @@ class Game
     b.make_move(b[piece.pos], pos2)
     return false if b.check?(piece.color)
     true
-  end      
+  end
+  
+  def move_list
+    @board.move_list
+  end
 end
 
 g = Game.new
